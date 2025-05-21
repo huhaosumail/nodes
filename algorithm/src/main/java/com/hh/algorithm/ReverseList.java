@@ -5,27 +5,19 @@ package com.hh.algorithm;
  */
 public class ReverseList {
 
-    static class ListNode{
-        private int val;
-        private ListNode next;
-        public ListNode(int val,ListNode next){
-            this.val = val;
-            this.next = next;
-        }
-    }
 
     /**
      * 迭代
      * @param listNode
      * @return
      */
-    static ListNode reverseList(ListNode listNode){
+    static ReverseKGroup.ListNode reverseList(ReverseKGroup.ListNode listNode){
         // 前驱节点初始为null
-        ListNode prev = null;
+        ReverseKGroup.ListNode prev = null;
         // 当前节点用cur表示
-        ListNode cur = listNode;
+        ReverseKGroup.ListNode cur = listNode;
         // 用temp暂存下一个节点
-        ListNode temp;
+        ReverseKGroup.ListNode temp;
         while (cur != null) {
             // 获取下一个节点
             temp = cur.next;
@@ -41,13 +33,13 @@ public class ReverseList {
     }
     public static void main(String[] args) {
 
-        ListNode listNode5 = new ListNode(5,null);
-        ListNode listNode4 = new ListNode(4,listNode5);
-        ListNode listNode3 = new ListNode(3,listNode4);
-        ListNode listNode2 = new ListNode(2,listNode3);
-        ListNode listNode1 = new ListNode(1,listNode2);
+        ReverseKGroup.ListNode listNode5 = new ReverseKGroup.ListNode(5,null);
+        ReverseKGroup.ListNode listNode4 = new ReverseKGroup.ListNode(4,listNode5);
+        ReverseKGroup.ListNode listNode3 = new ReverseKGroup.ListNode(3,listNode4);
+        ReverseKGroup.ListNode listNode2 = new ReverseKGroup.ListNode(2,listNode3);
+        ReverseKGroup.ListNode listNode1 = new ReverseKGroup.ListNode(1,listNode2);
 
-        ListNode result = reverseList(listNode1);
+        ReverseKGroup.ListNode result = reverseList(listNode1);
         while (result != null) {
             System.out.println(result.val);
             result = result.next;
