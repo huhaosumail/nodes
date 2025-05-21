@@ -14,7 +14,44 @@ import com.hh.algorithm.ReverseKGroup.ListNode;
 public class MergeTwoLists {
 
 
-    public static ListNode mergeTwoLists(ListNode listNode1, ListNode listNode2){
+    public static ListNode mergeTwoLists(ListNode list1, ListNode list2){
+        if (list1 == null && list2 == null) {
+            return null;
+        }
+
+        // 定义一个head节点作为合并后链表到头节点
+        ListNode head = new ListNode();
+        // node作为活动节点，用来合并节点
+        ListNode node = head;
+        while (list1 != null || list2 != null) {
+            if (list1 == null) {
+                // 如果list1为空，那么直接将list2合入node.next
+                node.next = list2;
+                // 然后直接break
+                break ;
+            } else if (list2 == null) {
+                // 如果list2为空，那么直接将list1合入node.next
+                node.next = list1;
+                // 然后直接break
+                break ;
+            } else if (list1.val < list2.val) {
+                // list1.val更小，就将list1合入node.next
+                node.next = list1;
+                // list1跳到下一个节点
+                list1 = list1.next;
+            } else {
+                // list2.val更小，就将list2合入node.next
+                node.next = list2;
+                // list2跳到下一个节点
+                list2 = list2.next;
+            }
+
+            // node跳到下一个节点
+            node = node.next;
+        }
+
+        // 返回头节点到next即新链表到头节点
+        return head.next;
 
 
     }
