@@ -13,11 +13,23 @@ import java.util.List;
  */
 public class ZigzagLevelOrder {
 
-    public List<List<Integer>> zigzagLevelOrder(LevelOrder.TreeNode root) {
+    public static List<List<Integer>> zigzagLevelOrder(LevelOrder.TreeNode root) {
+
 
 
     }
     public static void main(String[] args) {
 
+        // 手动构建二叉树
+        LevelOrder.TreeNode root = new LevelOrder.TreeNode(3);
+        root.left = new LevelOrder.TreeNode(9);
+        root.right = new LevelOrder.TreeNode(20);
+        root.right.left = new LevelOrder.TreeNode(15);
+        root.right.right = new LevelOrder.TreeNode(7);
+
+        // 层序遍历输出
+        System.out.print("层序遍历结果: ");
+        List<List<Integer>>  list = zigzagLevelOrder(root);
+        list.forEach(System.out::println);
     }
 }
