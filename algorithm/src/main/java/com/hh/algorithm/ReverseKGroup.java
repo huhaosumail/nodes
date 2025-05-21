@@ -21,8 +21,8 @@ package com.hh.algorithm;
 public class ReverseKGroup {
 
     public static class ListNode{
-        private int val;
-        private ListNode next;
+        public int val;
+        public ListNode next;
         public ListNode(int val,ListNode next){
             this.val = val;
             this.next = next;
