@@ -7,7 +7,39 @@ package com.hh.algorithm;
  */
 public class GetKthFromEnd {
 
+    public static ReverseKGroup.ListNode getKthFromEnd(ReverseKGroup.ListNode head,int k){
+
+        // 先定义firstNode向右遍历k个节点
+        ReverseKGroup.ListNode firstNode = head;
+        while (k-- > 0 && firstNode != null) {
+            firstNode = firstNode.next;
+        }
+
+        // 然后定义secondNode从头开始遍历
+        // firstNode继续向右遍历，直到firstNode遍历到空节点为止
+        ReverseKGroup.ListNode secondNode = head;
+        while (firstNode != null) {
+            // firstNode和secondNode一起向右遍历
+            firstNode = firstNode.next;
+            secondNode = secondNode.next;
+        }
+
+        // secondNode节点就是倒数第k个节点
+        return secondNode;
+
+    }
     public static void main(String[] args) {
+
+
+        ReverseKGroup.ListNode node5 = new ReverseKGroup.ListNode(5,null);
+        ReverseKGroup.ListNode node4 = new ReverseKGroup.ListNode(4,node5);
+        ReverseKGroup.ListNode node3 = new ReverseKGroup.ListNode(3,node4);
+        ReverseKGroup.ListNode node2 = new ReverseKGroup.ListNode(2,node3);
+        ReverseKGroup.ListNode node1 = new ReverseKGroup.ListNode(1,node2);
+
+       ReverseKGroup.ListNode result = getKthFromEnd(node1,2);
+       System.out.println(result.val);
+
 
     }
 }
