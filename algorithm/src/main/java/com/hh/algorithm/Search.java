@@ -10,4 +10,6 @@ package com.hh.algorithm;
  * nums 的每个元素都将在 [-9999, 9999]之间。
  */
 public class Search {
+
+
 }
