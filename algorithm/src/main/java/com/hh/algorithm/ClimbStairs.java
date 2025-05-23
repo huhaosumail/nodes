@@ -11,8 +11,28 @@ package com.hh.algorithm;
  */
 public class ClimbStairs {
 
+    public static int climbStairs(int n) {
+        if (n <= 2) {
+            return n;
+        }
+        // f[n] = f[n - 2] + f[n - 1]
+        // first = f[n - 2]
+        // second = f[n - 1]
+        int first = 1, second = 2, res = 0;
+        for (int i = 3; i <= n; i++) {
+            // 更新res
+            res = first + second;
+            // 下一轮的fisrt等于现在的second
+            first = second;
+            // 下一轮的second等于现在的res
+            second = res;
+        }
 
+        return res;
+    }
     public static void main(String[] args) {
+
+
 
     }
 }
