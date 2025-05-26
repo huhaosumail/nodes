@@ -13,6 +13,25 @@ package com.hh.algorithm;
  */
 public class HasPathSum {
 
+    public static boolean hasPathSum(LevelOrder.TreeNode root, int targetSum) {
+        if (root == null) {
+            // 递归到空节点直接返回
+            return false;
+        }
+
+        // targetSum当前节点值
+        targetSum -= root.val;
+        if (targetSum == 0 && root.left == null && root.right == null) {
+            // 如果targetSum等于0
+            // 且当前为叶子节点
+            // 则返回true
+            return true;
+        }
+
+        // 继续递归左右子节点
+        return hasPathSum(root.left, targetSum) || hasPathSum(root.right, targetSum);
+    }
+
     public static void main(String[] args) {
 
     }

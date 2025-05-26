@@ -9,6 +9,16 @@ package com.hh.algorithm;
  */
 public class MaxDepth {
 
+    public static int maxDepth(LevelOrder.TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        // 先遍历左右节点
+        // 然后返回最大值，再深度加1
+        return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
+    }
+
     public static void main(String[] args) {
 
     }

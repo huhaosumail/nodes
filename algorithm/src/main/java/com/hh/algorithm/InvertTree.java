@@ -10,6 +10,22 @@ package com.hh.algorithm;
  */
 public class InvertTree {
 
+    public static LevelOrder.TreeNode invertTree(LevelOrder.TreeNode root) {
+        if (root == null) {
+            return root;
+        }
+
+        // 先暂存left节点
+        LevelOrder.TreeNode left = root.left;
+        // 然后left == right，这里传right也会返回right
+        root.left = invertTree(root.right);
+        // right == left，这里传left也会返回left
+        root.right = invertTree(left);
+
+        // 返回当前节点即可
+        return root;
+    }
+
     public static void main(String[] args) {
 
     }
