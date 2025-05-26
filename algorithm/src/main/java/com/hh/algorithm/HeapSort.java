@@ -9,7 +9,7 @@ package com.hh.algorithm;
  * -5 * 104 <= nums[i] <= 5 * 104
  * 堆排序
  */
-public class Sort2 {
+public class HeapSort {
     public int[] sortArray(int[] nums) {
         int length = nums.length;
         // heapify：构建一个最大堆
