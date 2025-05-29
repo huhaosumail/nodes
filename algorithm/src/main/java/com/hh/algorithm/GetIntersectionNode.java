@@ -1,7 +1,6 @@
 package com.hh.algorithm;
 
 import java.util.HashSet;
-import java.util.Set;
 
 /**
  * 给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表不存在相交节点，返回 null 。
@@ -27,39 +26,42 @@ import java.util.Set;
 public class GetIntersectionNode {
 
     public static ReverseKGroup.ListNode getIntersectionNode(ReverseKGroup.ListNode headA, ReverseKGroup.ListNode headB) {
-        // 如果headA或者headB其中一个为null
-        // 那么它们必然不会相交，所以直接返回null
         if (headA == null || headB == null) {
             return null;
         }
+        HashSet<ReverseKGroup.ListNode> set = new HashSet<>();
 
-        // 利用Set集合保存headA链表的所有节点
-        Set<ReverseKGroup.ListNode> set = new HashSet<>();
-        ReverseKGroup.ListNode node = headA;
-        // 遍历headA将节点放入set集合中
-        while (node != null) {
-            set.add(node);
-
-            node = node.next;
+        while (headA != null) {
+            set.add(headA);
+            headA = headA.next;
         }
 
-        node = headB;
-        // 再遍历headB
-        // 并判断headB中是否有和set中相同的节点
-        while (node != null) {
-            // 如果有相同的节点
-            if (set.contains(node)) {
-                // 那么第一个相同的节点就是相交节点
-                // 直接返回
-                return node;
+        while (headB != null) {
+            //相交判定：必须基于节点引用，而非节点值。
+            if(set.contains(headB)){
+                return headB;
             }
-
-            // 跳到下一个节点
-            node = node.next;
+            headB = headB.next;
         }
-
         return null;
+    }
 
+    /**
+     * 使用两个指针 pA 和 pB 分别从链表 A 和 B 的头节点出发。
+     * 当一个指针到达链表末尾时，将其重定向到另一个链表的头节点。若两链表相交，则指针最终会在相交节点相遇；若不相交，则会同时到达 null。
+     * @param headA
+     * @param headB
+     * @return
+     */
+    public ReverseKGroup.ListNode getAnotherIntersectionNode(ReverseKGroup.ListNode headA, ReverseKGroup.ListNode headB) {
+        ReverseKGroup.ListNode pA = headA, pB = headB;
+        while (pA != pB) {
+            // 指针 pA 遍历完 A 后转向 B
+            pA = (pA == null) ? headB : pA.next;
+            // 指针 pB 遍历完 B 后转向 A
+            pB = (pB == null) ? headA : pB.next;
+        }
+        return pA; // 相交节点或 null（不相交时）
     }
 
     public static void main(String[] args) {
