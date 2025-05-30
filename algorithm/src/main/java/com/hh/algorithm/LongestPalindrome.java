@@ -2,53 +2,66 @@ package com.hh.algorithm;
 
 /**
  * 给你一个字符串 s，找到 s 中最长的回文子串。
- *
+ * <p>
  * 提示：
- *
+ * <p>
  * 1 <= s.length <= 1000
  * s 仅由数字和英文字母组成
  */
 public class LongestPalindrome {
 
     public String longestPalindrome(String s) {
-        int length = s.length(), st = 0, end = 0;
 
-        // 遍历字符串找出最长的回文子串
-        for (int i = 0; i < length; i++) {
-            // 先以位置i为中心向两边统计回文子串的长度
-            int s1 = helper(s, i, i);
-            // 再以位置i和下一个位置i + 1为中心向两边统计回文子串的长度
-            int s2 = helper(s, i, i + 1);
+        int n = s.length();
+        if (n == 1) {
+            return s;
+        }
 
-            // 取两者中的最大值
-            int max = Math.max(s1, s2);
-            // 如果最大值大于现有的回文子串长度
-            if (max > end - st + 1) {
-                // 则更新st和end
-                // 如果max为奇数，则i为中心位置
-                // 如果max为偶数，则i为中心位置中左边的位置
-                // 所以计算st时要减去(max - 1) / 2
-                st = i - (max - 1) / 2;
-                // 计算end时直接加上max的一半即max / 2
-                end = i + max / 2;
+//        if (n == 2) {
+//            if (s.charAt(0) == s.charAt(1)) {
+//                return s;
+//            } else {
+//                return null;
+//            }
+//        }
+        boolean[][] dp = new boolean[n][n];
+        int start = 0;  // 最长回文子串的起始位置
+        int maxLen = 1; // 最长回文子串的长度
+
+        /**
+         * 为什么需要这一步？
+         * 在动态规划中，我们需要从最小的子问题开始解决，然后逐步推导出更大的子问题。对于最长回文子串：
+         * 最小子问题：长度为 1 的子串（单个字符）
+         * 递推关系：长度≥2 的子串是否为回文，依赖于其首尾字符是否相同以及中间子串的状态
+         * 例如，判断子串 "abba" 是否为回文时，需要先知道中间子串 "bb" 是否为回文。而中间子串的判断最终会追溯到长度为 1 的子串。
+         */
+        //处理长度为1的子串
+        for (int i = 0; i < n; i++) {
+            dp[i][i] = true;
+        }
+        // 处理所有长度为2的子串
+        for (int i = 0; i < n - 1; i++) {
+            if (s.charAt(i) == s.charAt(i + 1)) {
+                dp[i][i + 1] = true;  // 标记相邻字符为回文
+                start = i;            // 记录起始位置
+                maxLen = 2;           // 记录当前最长长度为2
             }
         }
-
-        return s.substring(st, end + 1);
-    }
-
-    /**
-     * 统计字符串在left和right位置两边回文子串的长度
-     */
-    private int helper(String s, int left, int right) {
-        int length = s.length();
-        while (left >= 0 && right < length && s.charAt(left) == s.charAt(right)) {
-            left--;
-            right++;
+        //len表示长度的遍历
+        for (int len = 3; len <= n; len++) {
+            for (int i = 0; i <= n - len; i++) {
+                int j = i + len - 1;
+                if (dp[i + 1][j - 1] && s.charAt(i) == s.charAt(j)) {
+                    dp[i][j] = true;
+                    start = i;
+                    maxLen = len;
+                }
+            }
         }
+        return s.substring(start, start + maxLen);
 
-        return right - left - 1;
     }
+
 
     public static void main(String[] args) {
 
