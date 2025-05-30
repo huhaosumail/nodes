@@ -1,6 +1,7 @@
 package com.hh.algorithm;
 
 import java.util.LinkedList;
+import java.util.Stack;
 
 /**
  * 给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串 s ，判断字符串是否有效。
@@ -18,38 +19,32 @@ public class IsValid {
 
 
     public static boolean isValid(String s) {
+
         int length = s.length();
-        if (length % 2 == 1) {
+        if (length % 2 != 0) {
             return false;
         }
+        Stack<Character> stack = new Stack<>();
 
-        // 利用栈来完成括号匹配
-        LinkedList<Character> stack = new LinkedList<>();
-        // 遍历字符串的每一个字符
         for (int i = 0; i < length; i++) {
-            char c = s.charAt(i);
-            if (c == '(' || c == '{' || c == '[') {
-                // 如果当前字符是左括号
-                // 则则直接入栈
-                stack.push(c);
-
+            char character = s.charAt(i);
+            //char的话用单引号来表示
+            if (character == '(' || character == '{' || character == '[') {
+                stack.push(character);
                 continue;
             }
-
-            // 如果遇到右括号，但是栈是空
-            // 说明当前字符前面没有与之匹配的左括号
+            //必须先是左边部分
             if (stack.isEmpty()) {
-                // 直接返回false
+                return false;
+            }
+            //必须弹出 一比一消耗
+            char leftCharacter = stack.pop();
+            if (leftCharacter == '(' && character != ')' || leftCharacter == '{' && character != '}' || leftCharacter == '[' && character != ']') {
+                //下面这种表达都不行。必须要一一对应 否则（}这种也能通过 但是不对
+//            if (character == ')' || character == '}' || character == ']') {
                 return false;
             }
 
-            // 否则弹出栈顶元素
-            char l = stack.pop();
-            if (l == '(' && c != ')' || l == '{' && c != '}' || l == '[' && c != ']') {
-                // 如果栈顶元素不能和当前字符匹配成功
-                // 则直接返回false
-                return false;
-            }
         }
 
         // 栈不为空表示还有括号没有匹配成功
@@ -57,8 +52,6 @@ public class IsValid {
             // 这里直接返回false
             return false;
         }
-
-        // 到了这里表示所有括号都匹配成功，返回true
         return true;
     }
 

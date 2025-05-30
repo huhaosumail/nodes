@@ -2,28 +2,40 @@ package com.hh.algorithm;
 
 /**
  * 给你一棵二叉树的根节点 root ，翻转这棵二叉树，并返回其根节点。
- *
+ * <p>
  * 提示：
- *
+ * <p>
  * 树中节点数目范围在 [0, 100] 内
  * -100 <= Node.val <= 100
+ * <p>
+ * 输入二叉树：
+ * plaintext
+ * 4
+ * /   \
+ * 2     7
+ * / \   / \
+ * 1   3 6   9
+ * <p>
+ * 翻转后：
+ * plaintext
+ * 4
+ * /   \
+ * 7     2
+ * / \   / \
+ * 9   6 3   1
  */
 public class InvertTree {
 
     public static LevelOrder.TreeNode invertTree(LevelOrder.TreeNode root) {
+
         if (root == null) {
-            return root;
+            return null;
         }
-
-        // 先暂存left节点
         LevelOrder.TreeNode left = root.left;
-        // 然后left == right，这里传right也会返回right
         root.left = invertTree(root.right);
-        // right == left，这里传left也会返回left
         root.right = invertTree(left);
-
-        // 返回当前节点即可
         return root;
+
     }
 
     public static void main(String[] args) {
