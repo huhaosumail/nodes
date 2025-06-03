@@ -26,6 +26,24 @@ public class TopK {
         }
     }
 
+    /**
+     * 错误写法
+     * @param arr
+     * @param k
+     * @return
+     */
+//    public static int[] topK(int[] arr, int k) {
+//        PriorityQueue<Integer> queue = new PriorityQueue();
+//        for (int i = 0; i < arr.length; i++) {
+//            queue.add(arr[i]);
+//        }
+//        int[] result = new int[k];
+//        for (int j = k; j >= 0; j--) {
+//            result[j] = queue.poll();
+//        }
+//        return result;
+//    }
+
     public static int[] topK(int[] arr, int k) {
         if (arr == null || arr.length == 0 || k == 0) {
             return new int[]{};
